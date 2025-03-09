@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <link
+            href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css"
+            rel="stylesheet"
+    />
+</head>
+<body class="bg-gray-50">
+<div th:replace="menu :: menu"></div>
+
+<section
+        class="bg-gray-50 h-screen w-screen flex justify-center items-center dark:bg-gray-900 py-24"
+>
+    <div class="px-4 lg:px-12 h-full w-full">
+        <div
+                class="relative h-full overflow-hidden bg-white shadow-md dark:bg-gray-800 sm:rounded-lg"
+        >
+            <div
+                    class="flex flex-col px-4 py-3 space-y-3 lg:flex-row lg:items-center lg:justify-between lg:space-y-0 lg:space-x-4"
+            >
+                <div class="flex items-center flex-1 space-x-4">
+                    <h5>
+                        <span class="text-gray-500">All Products:</span>
+                        <span class="dark:text-white" th:text="${#lists.size(products)}"
+                        >0</span
+                        >
+                        <!-- Количество продуктов -->
+                    </h5>
+                    <h5>
+                        <span class="text-gray-500">Total sales:</span>
+                        <span class="dark:text-white" th:text="${totalSales}">0</span>
+                        <!-- Общие продажи -->
+                    </h5>
+                    <h5>
+                        <span class="text-gray-500">Total revenue:</span>
+                        <span class="dark:text-white" th:text="${totalRevenue}">0</span>
+                        <!-- Общий доход -->
+                    </h5>
+                </div>
+                <div
+                        class="flex flex-col flex-shrink-0 space-y-3 md:flex-row md:items-center lg:justify-end md:space-y-0 md:space-x-3"
+                >
+                    <div th:replace="add-product-modal :: add-product-modal"></div>
+                    <div th:replace="edit-product-modal :: edit-product-modal"></div>
+                </div>
+            </div>
+            <div class="overflow-x-auto">
+                <table
+                        class="table w-full text-sm text-left text-gray-500 dark:text-gray-400"
+                >
+                    <thead
+                            class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+                    >
+                    <tr>
+                        <th scope="col" class="px-4 py-3">Product</th>
+                        <th scope="col" class="px-4 py-3">Category</th>
+                        <th scope="col" class="px-4 py-3">Stock</th>
+                        <th scope="col" class="px-4 py-3">Fast Delivery</th>
+                        <th scope="col" class="px-4 py-3">Sales/Day</th>
+                        <th scope="col" class="px-4 py-3">Sales/Month</th>
+                        <th scope="col" class="px-4 py-3">Rating</th>
+                        <th scope="col" class="px-4 py-3">Sales</th>
+                        <th scope="col" class="px-4 py-3">Sale</th>
+                        <th scope="col" class="px-4 py-3">Price</th>
+                        <th scope="col" class="px-4 py-3">Revenue</th>
+                        <th scope="col" class="px-4 py-3">Last Update</th>
+                        <th scope="col" class="px-4 py-3">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr
+                            th:each="prod : ${products}"
+                            class="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    >
+                        <th
+                                scope="row"
+                                class="flex items-center px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                        >
+                            <img
+                                    th:src="@{/uploads/{image}(image=${prod.imagePath})}"
+                                    alt="Product Image"
+                                    class="w-auto h-8 mr-3"
+                            />
+                            <span th:text="${prod.name}"></span>
+                        </th>
+                        <td class="px-4 py-2">
+                    <span
+                            th:text="${prod.category}"
+                            class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300"
+                    ></span>
+                        </td>
+                        <td
+                                class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                        >
+                            <div class="flex items-center">
+                                <div
+                                        class="inline-block w-4 h-4 mr-2 bg-red-700 rounded-full"
+                                ></div>
+                                <span th:text="${prod.stock}"></span>
+                            </div>
+                        </td>
+                        <td
+                                class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                        >
+                            <div class="flex items-center">
+                                <div
+                                        th:class="${prod.fastDelivery ? 'inline-block w-4 h-4 mr-2 bg-green-700 rounded-full' : 'inline-block w-4 h-4 mr-2 bg-red-700 rounded-full'}"
+                                ></div>
+                                <span
+                                        th:text="${prod.fastDelivery ? 'Yes' : 'No'}"
+                                ></span>
+                            </div>
+                        </td>
+                        <td
+                                class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                        >
+                            <span th:text="${prod.salesPerDay}"></span>
+                        </td>
+                        <td
+                                class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                        >
+                            <span th:text="${prod.salesPerMonth}"></span>
+                        </td>
+                        <td
+                                class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                        >
+                            <span th:text="${prod.rating}"></span>
+                        </td>
+                        <td
+                                class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                        >
+                            <div class="flex items-center">
+                                <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewbox="0 0 24 24"
+                                        fill="currentColor"
+                                        class="w-5 h-5 mr-2 text-gray-400"
+                                        aria-hidden="true"
+                                >
+                                    <path
+                                            d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 000-1.5H5.378A2.25 2.25 0 017.5 15h11.218a.75.75 0 00.674-.421 60.358 60.358 0 002.96-7.228.75.75 0 00-.525-.965A60.864 60.864 0 005.68 4.509l-.232-.867A1.875 1.875 0 003.636 2.25H2.25zM3.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM16.5 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z"
+                                    />
+                                </svg>
+                                <span th:text="${prod.sales}"></span>
+                            </div>
+                        </td>
+                        <td class="px-4 py-2">
+                            <span th:text="${prod.sale + ' %'}"></span>
+                        </td>
+                        <td class="px-4 py-2">
+                    <span
+                            th:text="${#numbers.formatDecimal(prod.price, 0, prod.price % 1 == 0 ? 0 : 2) + ' $'}"
+                    ></span>
+                        </td>
+                        <td class="px-4 py-2">
+                            <span th:text="${prod.revenue}"></span>
+                        </td>
+                        <td
+                                class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                        >
+                            <span th:text="${prod.lastUpdate}"></span>
+                        </td>
+                        <td
+                                class="flex space-x-2 px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                        >
+                            <a
+                                    th:href="@{/products/edit/{id}(id=${prod.id})}"
+                                    id="defaultModalButton1"
+                                    data-modal-target="defaultModal1"
+                                    data-modal-toggle="defaultModal1"
+                                    class="editButton block text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                                    type="button"
+                            >
+                                Edit product
+                            </a>
+                            <a
+                                    th:href="@{/products/delete/{id}(id=${prod.id})}"
+                                    class="deleteButton block text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                                    type="button"
+                            >
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+      function updateImagePreview() {
+        const fileInput = document.getElementById("dropzone-file");
+        const previewImg = document.getElementById("preview-img");
+        const previewContainer = document.getElementById("preview-container");
+
+        const file = fileInput.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            previewImg.src = e.target.result;
+            previewImg.classList.remove("hidden");
+          };
+          reader.readAsDataURL(file);
+        }
+      }
+
+      // Теперь функция будет доступна глобально
+      window.updateImagePreview = updateImagePreview;
+
+      function updateEditImagePreview() {
+        const fileInput = document.getElementById("edit-dropzone-file");
+        const previewImg = document.getElementById("edit-preview-img");
+        const previewContainer = document.getElementById("preview-container");
+
+        const file = fileInput.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            previewImg.src = e.target.result;
+            previewImg.classList.remove("hidden");
+          };
+          reader.readAsDataURL(file);
+        }
+      }
+
+      // Теперь функция будет доступна глобально
+      window.updateEditImagePreview = updateEditImagePreview;
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+      document
+        .querySelectorAll(".table .editButton")
+        .forEach(function (button) {
+          button.addEventListener("click", function (event) {
+            event.preventDefault();
+
+            var href = this.getAttribute("href");
+
+            fetch(href)
+              .then((response) => response.json())
+              .then((product) => {
+                document.getElementById("edit-id").value = product.id;
+
+                document.getElementById("edit-name").value = product.name;
+                document.getElementById("edit-price").value = product.price;
+                document.getElementById("edit-stock").value = product.stock;
+                document.getElementById("edit-category").value =
+                  product.category;
+                document.getElementById("edit-description").value =
+                  product.description;
+                document.getElementById("edit-sale").value = product.sale;
+                document.getElementById("edit-fastDelivery").checked =
+                  product.fastDelivery; // Для чекбокса
+
+                document.getElementById("edit-preview-img").src =
+                  product.imagePath ? `/uploads/${product.imagePath}` : ""; // Make sure this path matches your backend
+              })
+              .catch((error) =>
+                console.error("Error fetching nationality:", error)
+              );
+
+            document.getElementById("editModal").style.display = "block";
+          });
+        });
+    });
+</script>
+
+<script
+        type="text/javascript"
+        th:src="@{js/main.js}"
+        src="/static/js/main.js"
+></script>
+<script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+</body>
+</html>
