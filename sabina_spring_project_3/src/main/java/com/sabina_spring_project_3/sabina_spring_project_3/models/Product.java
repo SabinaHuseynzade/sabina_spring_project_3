@@ -27,9 +27,6 @@ public class Product {
     private String category;
 
     @Column(nullable = false)
-    private int stock;
-
-    @Column(nullable = false)
     private String imagePath;
 
     @Column(name = "sales_per_day", nullable = false)
@@ -57,13 +54,26 @@ public class Product {
     private double sale;
 
     @Column(nullable = false)
-    private boolean fastDelivery;
+    private boolean isNew;
+
+    @Column(nullable = false)
+    private String model;
+
+    @Column(nullable = false)
+    private String speed;
+
+    @Column(name = "ram", nullable = false)
+    private int RAM;
+
+    @Column(nullable = false)
+    private String processor;
+
+    @Column(name = "rom", nullable = false)
+    private int ROM;
 
     @Column(name = "last_update")
     private LocalDate lastUpdate;
 
-    @Column(nullable = false)
-    private String description;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -72,11 +82,10 @@ public class Product {
     public Product() {
     }
 
-    public Product(Long id, String name, String category, int stock, String imagePath, int salesPerDay, int salesPerMonth, double rating, int ratedCount, int sales, double revenue, double price, double sale, boolean fastDelivery, LocalDate lastUpdate, String description, User user) {
+    public Product(Long id, String name, String category, String imagePath, int salesPerDay, int salesPerMonth, double rating, int ratedCount, int sales, double revenue, double price, double sale, boolean isNew, String model, String speed, int RAM, String processor, int ROM, LocalDate lastUpdate, User user) {
         this.id = id;
         this.name = name;
         this.category = category;
-        this.stock = stock;
         this.imagePath = imagePath;
         this.salesPerDay = salesPerDay;
         this.salesPerMonth = salesPerMonth;
@@ -86,18 +95,20 @@ public class Product {
         this.revenue = revenue;
         this.price = price;
         this.sale = sale;
-        this.fastDelivery = fastDelivery;
+        this.isNew = isNew;
+        this.model = model;
+        this.speed = speed;
+        this.RAM = RAM;
+        this.processor = processor;
+        this.ROM = ROM;
         this.lastUpdate = lastUpdate;
-        this.description = description;
         this.user = user;
     }
 
-    public Product(String name, String category, int stock, double price, String description, User user) {
+    public Product(String name, String category, double price, User user) {
         this.name = name;
         this.category = category;
-        this.stock = stock;
         this.price = price;
-        this.description = description;
         this.user = user;
     }
 
@@ -123,14 +134,6 @@ public class Product {
 
     public void setCategory(String category) {
         this.category = category;
-    }
-
-    public int getStock() {
-        return stock;
-    }
-
-    public void setStock(int stock) {
-        this.stock = stock;
     }
 
     public String getImagePath() {
@@ -205,12 +208,12 @@ public class Product {
         this.sale = sale;
     }
 
-    public boolean isFastDelivery() {
-        return fastDelivery;
+    public Boolean getIsNew() {
+        return isNew;
     }
 
-    public void setFastDelivery(boolean fastDelivery) {
-        this.fastDelivery = fastDelivery;
+    public void setIsNew(Boolean isNew) {
+        this.isNew = isNew;
     }
 
     public LocalDate getLastUpdate() {
@@ -221,13 +224,6 @@ public class Product {
         this.lastUpdate = lastUpdate;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public User getUser() {
         return user;
@@ -235,5 +231,45 @@ public class Product {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public String getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(String speed) {
+        this.speed = speed;
+    }
+
+    public int getRAM() {
+        return RAM;
+    }
+
+    public void setRAM(int RAM) {
+        this.RAM = RAM;
+    }
+
+    public String getProcessor() {
+        return processor;
+    }
+
+    public void setProcessor(String processor) {
+        this.processor = processor;
+    }
+
+    public int getROM() {
+        return ROM;
+    }
+
+    public void setROM(int ROM) {
+        this.ROM = ROM;
     }
 }

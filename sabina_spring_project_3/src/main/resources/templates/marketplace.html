@@ -2085,14 +2085,12 @@
                   product.name; // Вставка названия продукта
                 document.querySelector(".product-price").textContent =
                   product.price + " $"; // Вставка цены
-                document.querySelector(".product-stock").textContent =
-                  product.stock; // Вставка наличия на складе
                 document.querySelector(".product-category").textContent =
                   product.category; // Вставка категории
                 document.querySelector(".product-description").textContent =
                   product.description; // Вставка описания
-                document.querySelector(".product-fastDelivery").textContent =
-                  product.fastDelivery ? "Yes" : "No"; // Вставка информации о быстрой доставке
+                document.querySelector(".product-isNew").textContent =
+                  product.isNew ? "Yes" : "No"; // Вставка информации о быстрой доставке
                 document.querySelector("#product-image").src =
                   product.imagePath ? `/uploads/${product.imagePath}` : ""; // Вставка изображения
               })

@@ -30,8 +30,11 @@ public class ProductService {
             uploadDirectory.mkdirs(); // Creates the directory, including any necessary parent directories
         }
 
-        // Check if the image file is not empty
-        if (imageFile != null && !imageFile.isEmpty()) {
+        if (imageFile == null || imageFile.isEmpty()) {
+            Product oldProduct = productRepository.findById(product.getId()).get();
+            product.setImagePath(oldProduct.getImagePath());
+        } else {
+            // Check if the image file is not empty
             // Create a unique filename for the image to avoid overwriting existing files
             String originalFilename = imageFile.getOriginalFilename();
             String uniqueFilename = System.currentTimeMillis() + "_" + originalFilename; // e.g., 1634092095671_image.jpg
@@ -44,9 +47,10 @@ public class ProductService {
 
             // Set the image path in the product entity (use relative path if needed)
             product.setImagePath(uniqueFilename); // Save only the filename or the relative path if preferred
-        } else {
-            throw new IOException("Image file is empty or not provided");
+
         }
+
+
 
         // Save the product entity to the database
         return productRepository.save(product);

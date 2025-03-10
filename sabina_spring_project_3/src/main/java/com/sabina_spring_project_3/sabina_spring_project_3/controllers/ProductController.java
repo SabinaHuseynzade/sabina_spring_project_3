@@ -51,24 +51,23 @@ public class ProductController {
 
         User user = userRepository.findByUsername(username);
         if (user == null) {
-            // Обработка случая, когда пользователь не найден
-            return "redirect:/error"; // Перенаправление на страницу ошибки или уведомление
+
+            return "redirect:/error";
         }
 
-        // Установите пользователя для нового продукта
-        newProduct.setUser(user); // Устанавливаем пользователя в Product
 
-        // Проверка на null и не пустой файл
+        newProduct.setUser(user);
+
         if (imageFile == null || imageFile.isEmpty()) {
-            // Обработка случая, когда файл не загружен
-            return "redirect:/add-product?error=image"; // Перенаправление с ошибкой
+
+            return "redirect:/add-product?error=image";
         }
 
         String result = newProduct.toString();
         System.out.println(result);
         productService.addProduct(newProduct, imageFile);
 
-        // Перенаправление на страницу с продуктами пользователя (предполагается, что у пользователя есть ID)
+
         return "redirect:/products/user/" + user.getId();
     }
 
@@ -77,7 +76,7 @@ public class ProductController {
     public String editProduct(
             @ModelAttribute("editProduct") Product newProduct,
             @AuthenticationPrincipal UserDetails userDetails,
-            @RequestParam("imageFile") MultipartFile imageFile) throws IOException {
+            @RequestParam("file") MultipartFile imageFile) throws IOException {
 
         String username = userDetails.getUsername();
         System.out.println(username);
@@ -86,29 +85,24 @@ public class ProductController {
 
         User user = userRepository.findByUsername(username);
         if (user == null) {
-            // Обработка случая, когда пользователь не найден
-            return "redirect:/error"; // Перенаправление на страницу ошибки или уведомление
+
+            return "redirect:/error";
         }
 
-        // Установите пользователя для нового продукта
-        newProduct.setUser(user); // Устанавливаем пользователя в Product
+        newProduct.setUser(user);
 
-        // Проверка на null и не пустой файл
-        if (imageFile == null || imageFile.isEmpty()) {
-            // Обработка случая, когда файл не загружен
-            return "redirect:/add-product?error=image"; // Перенаправление с ошибкой
-        }
+
 
         productService.addProduct(newProduct, imageFile);
 
-        // Перенаправление на страницу с продуктами пользователя (предполагается, что у пользователя есть ID)
+
         return "redirect:/products/user/" + user.getId();
     }
 
     @GetMapping("/edit/{id}")
     @ResponseBody
     public Optional<Product> getProductDetails(@PathVariable Long id, Model model) {
-        // Загрузка товара по ID
+
         return productService.findById(id);
     }
 
@@ -118,12 +112,12 @@ public class ProductController {
 
         User user = userRepository.findByUsername(username);
         if (user == null) {
-            return "redirect:/error"; // Обработка случая, когда пользователь не найден
+            return "redirect:/error";
         }
 
         productService.deleteProductById(id);
 
-        // Перенаправление на страницу с продуктами пользователя после удаления
+
         return "redirect:/products/user/" + user.getId();
     }
 
@@ -132,17 +126,17 @@ public class ProductController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
             Model model) {
-        List<Product> products = productService.getAllProducts(page, size); // Получаем продукты
+        List<Product> products = productService.getAllProducts(page, size);
         model.addAttribute("products", products);
         model.addAttribute("currentPage", page);
-        model.addAttribute("hasMore", products.size() == size); // Указываем, есть ли еще продукты
-        return "marketplace"; // Название HTML-шаблона для отображения
+        model.addAttribute("hasMore", products.size() == size);
+        return "marketplace";
     }
 
     @GetMapping("/more/{id}")
     @ResponseBody
     public Optional<Product> getProductMoreDetails(@PathVariable Long id, Model model) {
-        // Загрузка товара по ID
+
         return productService.findById(id);
     }
 }

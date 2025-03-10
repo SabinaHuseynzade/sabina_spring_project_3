@@ -57,14 +57,15 @@
                     <tr>
                         <th scope="col" class="px-4 py-3">Product</th>
                         <th scope="col" class="px-4 py-3">Category</th>
-                        <th scope="col" class="px-4 py-3">Stock</th>
-                        <th scope="col" class="px-4 py-3">Fast Delivery</th>
-                        <th scope="col" class="px-4 py-3">Sales/Day</th>
-                        <th scope="col" class="px-4 py-3">Sales/Month</th>
-                        <th scope="col" class="px-4 py-3">Rating</th>
+                        <th scope="col" class="px-4 py-3">Is New</th>
+                        <th scope="col" class="px-4 py-3">Model</th>
+                        <th scope="col" class="px-4 py-3">Speed</th>
                         <th scope="col" class="px-4 py-3">Sales</th>
                         <th scope="col" class="px-4 py-3">Sale</th>
                         <th scope="col" class="px-4 py-3">Price</th>
+                        <th scope="col" class="px-4 py-3">RAM</th>
+                        <th scope="col" class="px-4 py-3">Processor</th>
+                        <th scope="col" class="px-4 py-3">ROM</th>
                         <th scope="col" class="px-4 py-3">Revenue</th>
                         <th scope="col" class="px-4 py-3">Last Update</th>
                         <th scope="col" class="px-4 py-3">Actions</th>
@@ -97,37 +98,24 @@
                         >
                             <div class="flex items-center">
                                 <div
-                                        class="inline-block w-4 h-4 mr-2 bg-red-700 rounded-full"
-                                ></div>
-                                <span th:text="${prod.stock}"></span>
-                            </div>
-                        </td>
-                        <td
-                                class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                        >
-                            <div class="flex items-center">
-                                <div
-                                        th:class="${prod.fastDelivery ? 'inline-block w-4 h-4 mr-2 bg-green-700 rounded-full' : 'inline-block w-4 h-4 mr-2 bg-red-700 rounded-full'}"
+                                        th:class="${prod.isNew ? 'inline-block w-4 h-4 mr-2 bg-green-700 rounded-full' : 'inline-block w-4 h-4 mr-2 bg-red-700 rounded-full'}"
                                 ></div>
                                 <span
-                                        th:text="${prod.fastDelivery ? 'Yes' : 'No'}"
+                                        th:text="${prod.isNew ? 'Yes' : 'No'}"
                                 ></span>
                             </div>
                         </td>
-                        <td
-                                class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                        >
-                            <span th:text="${prod.salesPerDay}"></span>
+                        <td class="px-4 py-2">
+                    <span
+                            th:text="${prod.model}"
+                            class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300"
+                    ></span>
                         </td>
-                        <td
-                                class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                        >
-                            <span th:text="${prod.salesPerMonth}"></span>
-                        </td>
-                        <td
-                                class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                        >
-                            <span th:text="${prod.rating}"></span>
+                        <td class="px-4 py-2">
+                    <span
+                            th:text="${prod.speed}"
+                            class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300"
+                    ></span>
                         </td>
                         <td
                                 class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white"
@@ -153,6 +141,24 @@
                         <td class="px-4 py-2">
                     <span
                             th:text="${#numbers.formatDecimal(prod.price, 0, prod.price % 1 == 0 ? 0 : 2) + ' $'}"
+                    ></span>
+                        </td>
+                        <td class="px-4 py-2">
+                    <span
+                            th:text="${prod.RAM}"
+                            class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300"
+                    ></span>
+                        </td>
+                        <td class="px-4 py-2">
+                    <span
+                            th:text="${prod.processor}"
+                            class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300"
+                    ></span>
+                        </td>
+                        <td class="px-4 py-2">
+                    <span
+                            th:text="${prod.ROM}"
+                            class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300"
                     ></span>
                         </td>
                         <td class="px-4 py-2">
@@ -247,14 +253,18 @@
 
                 document.getElementById("edit-name").value = product.name;
                 document.getElementById("edit-price").value = product.price;
-                document.getElementById("edit-stock").value = product.stock;
+                document.getElementById("edit-ram").value = product.ram;
+                document.getElementById("edit-processor").value = product.processor;
+                document.getElementById("edit-rom").value = product.rom;
                 document.getElementById("edit-category").value =
                   product.category;
-                document.getElementById("edit-description").value =
-                  product.description;
+
                 document.getElementById("edit-sale").value = product.sale;
-                document.getElementById("edit-fastDelivery").checked =
-                  product.fastDelivery; // Для чекбокса
+                document.getElementById("edit-isNew").checked =
+                  product.isNew;
+                document.getElementById("edit-model").value = product.model;
+                document.getElementById("edit-speed").value = product.speed;
+                document.getElementById("edit-processor").value = product.processor;
 
                 document.getElementById("edit-preview-img").src =
                   product.imagePath ? `/uploads/${product.imagePath}` : ""; // Make sure this path matches your backend

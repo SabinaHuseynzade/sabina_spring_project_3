@@ -57,19 +57,35 @@
                             <input type="number" th:field="*{price}" name="price" id="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="$2999" required="">
                         </div>
                         <div>
-                            <label for="stock" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Stock</label>
-                            <input type="number" th:field="*{stock}" name="stock" id="stock" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="1000" required="">
+                            <label for="RAM" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">RAM</label>
+                            <input type="number" th:field="*{RAM}" name="RAM" id="RAM" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="$2999" required="">
+                        </div>
+                        <div>
+                            <label for="processor" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Processor</label>
+                            <input type="text" th:field="*{processor}" name="processor" id="processor" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type product name" required="">
+                        </div>
+                        <div>
+                            <label for="ROM" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ROM</label>
+                            <input type="number" th:field="*{ROM}" name="ROM" id="ROM" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="$2999" required="">
                         </div>
                         <div>
                             <label for="sale" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sale %</label>
                             <input type="number" th:field="*{sale}" name="stock" id="sale" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="1000" required="">
                         </div>
                         <div>
-                            <label for="fastDelivery" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fast delivery</label>
+                            <label for="isNew" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Is New</label>
                             <div class="flex items-center ps-2 rounded dark:border-gray-700 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                <input th:field="*{fastDelivery}" id="fastDelivery" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                                <label for="fastDelivery" class="w-full ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Fast delivery</label>
+                                <input th:field="*{isNew}" id="isNew" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                                <label for="isNew" class="w-full ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Is New</label>
                             </div>
+                        </div>
+                        <div>
+                            <label for="model" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Model</label>
+                            <input type="text" th:field="*{model}" name="model" id="model" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type product name" required="">
+                        </div>
+                        <div>
+                            <label for="speed" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Speed</label>
+                            <input type="text" th:field="*{speed}" name="speed" id="speed" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type product name" required="">
                         </div>
 
 
@@ -78,17 +94,22 @@
                             <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
                             <select id="category" th:field="*{category}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                                 <option value="" selected>Select category</option> <!-- Add a value attribute -->
-                                <option value="TV">TV/Monitors</option>
-                                <option value="PC">PC</option>
-                                <option value="GA">Gaming/Console</option>
-                                <option value="PH">Phones</option>
+                                <option value="Acer">Acer</option>
+                                <option value="HP">HP</option>
+                                <option value="Asus">Asus</option>
+                                <option value="Dell">Dell</option>
+                                <option value="Lenovo">Lenovo</option>
+                                <option value="LG">LG</option>
+                                <option value="Casper">Casper</option>
+                                <option value="Fujitsu">Fujitsu</option>
+                                <option value="Nexus">Nexus</option>
+                                <option value="Samsung">Samsung</option>
+                                <option value="Toshiba">Toshiba</option>
+                                <option value="Sony">Sony</option>
                             </select>
                         </div>
 
-                        <div class="col-span-2">
-                            <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
-                            <textarea id="description" th:field="*{description}" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Write product description here"></textarea>
-                        </div>
+
                         <div class="flex items-center justify-center w-full">
                             <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-40 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                                 <div class="flex flex-col items-center justify-center pt-5 pb-6">
