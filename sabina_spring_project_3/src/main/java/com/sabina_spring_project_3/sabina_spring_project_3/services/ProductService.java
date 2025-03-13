@@ -21,73 +21,85 @@ public class ProductService {
 
     private final String uploadDir = "C:\\Users\\ASUS\\Documents\\GitHub\\sabina_spring_project_3\\sabina_spring_project_3\\uploads/";
 
+    //добавляет новый продукт
     public Product addProduct(Product product, MultipartFile imageFile) throws IOException {
-        // Define the upload directory (you might want to use an absolute path here)
+
+        //проверяет и создает папку
         File uploadDirectory = new File(uploadDir);
 
-        // Create the upload directory if it doesn't exist
+
+
         if (!uploadDirectory.exists()) {
-            uploadDirectory.mkdirs(); // Creates the directory, including any necessary parent directories
+            uploadDirectory.mkdirs();
         }
 
+
+        //если нет фото оставляет старое
         if (imageFile == null || imageFile.isEmpty()) {
             Product oldProduct = productRepository.findById(product.getId()).get();
             product.setImagePath(oldProduct.getImagePath());
         } else {
-            // Check if the image file is not empty
-            // Create a unique filename for the image to avoid overwriting existing files
-            String originalFilename = imageFile.getOriginalFilename();
-            String uniqueFilename = System.currentTimeMillis() + "_" + originalFilename; // e.g., 1634092095671_image.jpg
 
-            // Define the full path for saving the image
-            File imageFilePath = new File(uploadDirectory, uniqueFilename);
+            String originalFilename = imageFile.getOriginalFilename();//генерирует уникальное имя файла
+            String uniqueFilename = System.currentTimeMillis() + "_" + originalFilename;
 
-            // Save the image file to the specified path
+            File imageFilePath = new File(uploadDirectory, uniqueFilename);//сохраняет фото в папку
+
+
             imageFile.transferTo(imageFilePath);
 
-            // Set the image path in the product entity (use relative path if needed)
-            product.setImagePath(uniqueFilename); // Save only the filename or the relative path if preferred
+
+            product.setImagePath(uniqueFilename);//устанавливает путь к папке
 
         }
 
 
 
-        // Save the product entity to the database
+
         return productRepository.save(product);
     }
 
 
+    // получает товары по id
     public List<Product> getProductsByUserId(Long userId) {
-        return productRepository.findByUserId(userId); // Получаем товары по ID пользователя
+        return productRepository.findByUserId(userId);
     }
 
+    // получает страницу продуктов и возвращает ее содержимое
     public List<Product> getAllProducts(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<Product> productPage = productRepository.findAll(pageable); // Получаем страницу продуктов
-        return productPage.getContent(); // Возвращаем содержимое страницы
+        Page<Product> productPage = productRepository.findAll(pageable);
+        return productPage.getContent();
     }
 
+    // получает продукт по id
     public Product getProductById(Long id) {
-        return productRepository.findById(id).orElse(null); // Получаем продукт по ID
+        return productRepository.findById(id).orElse(null);
     }
 
+    // находит общее колчисество продаж
     public int getTotalSales() {
         List<Product> products = productRepository.findAll();
-        return products.stream().mapToInt(Product::getSales).sum(); // Суммирует общие продажи
+        return products.stream().mapToInt(Product::getSales).sum();
     }
 
+    //находит общее количество дохода
     public double getTotalRevenue() {
         List<Product> products = productRepository.findAll();
-        return products.stream().mapToDouble(Product::getRevenue).sum(); // Суммирует доход
+        return products.stream().mapToDouble(Product::getRevenue).sum();
     }
 
+    //находит продукт по id
     public Optional<Product> findById(Long id) {
         return productRepository.findById(id);
     }
 
+    //удаляет продукт по id
     public void deleteProductById(Long id) {
         productRepository.deleteById(id);
     }
+
+    //находит продукт по категории
     public List<Product> getProductsByCategory(String category, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         return productRepository.findByCategory(category);

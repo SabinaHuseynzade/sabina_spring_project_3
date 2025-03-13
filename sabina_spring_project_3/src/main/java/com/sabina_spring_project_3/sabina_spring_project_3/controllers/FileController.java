@@ -17,9 +17,10 @@ public class FileController {
         this.resourceLoader = resourceLoader;
     }
 
-    @GetMapping("/uploads/{filename:.+}")
+    @GetMapping("/uploads/{filename:.+}")//для загрузки файлов
     public ResponseEntity<Resource> getFile(@PathVariable String filename) {
         try {
+            //получает имя файла и заугружает его с указанного пути
             Resource resource = resourceLoader.getResource("file:C:/Users/ASUS/Documents/GitHub/sabina_spring_project_3/sabina_spring_project_3/uploads/" + filename);
             return ResponseEntity.ok()
                     .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")

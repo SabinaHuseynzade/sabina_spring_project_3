@@ -26,20 +26,26 @@ public class SecurityConfig {
     private CustomUserDetailsService customUserDetailsService;
 
 
+    //фильтрация по ролям
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+
                 .authorizeHttpRequests(authorize -> authorize
+                        //без аккаунта можно зайти на страницы:
                         .requestMatchers("/", "/home", "/login", "/marketplace", "/products", "/register").permitAll()
+                        //только имея аккаунт можно добавить продукт
                         .requestMatchers("/products/add-product-process").authenticated()
                         .anyRequest().authenticated()
 
                 )
+                //обрабатывает данные во время логина
                 .formLogin(form -> form
                         .loginPage("/login")
                         .loginProcessingUrl("/login-process")
                         .permitAll()
                 )
+                //можно выйти из аккаунта если ты в него вошел
                 .logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/login?logout")
@@ -49,16 +55,19 @@ public class SecurityConfig {
         return http.build();
     }
 
+    //передает данные о пользователе
     @Bean
     public UserDetailsService userDetailsService() {
         return customUserDetailsService;
     }
 
+    //шифрует пароль
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    //помогает аутенцифицировать пользователя с пеомощью данных о нем и кодирования пароля
     @Bean
     public AuthenticationManager authManager(HttpSecurity http) throws Exception {
         AuthenticationManagerBuilder authenticationManagerBuilder =

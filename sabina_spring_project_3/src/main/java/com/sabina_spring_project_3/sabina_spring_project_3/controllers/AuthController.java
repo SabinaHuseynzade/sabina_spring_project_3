@@ -21,36 +21,44 @@ public class AuthController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    //переносит на логин страницу
     @GetMapping("/login")
     public String login(Model model) {
         model.addAttribute("loginForm", new LoginForm());
         return "login";
     }
 
+
+
+    //переносит на страницу регистрации
     @GetMapping("/register")
     public String register(Model model) {
         model.addAttribute("user", new User());
         return "register";
     }
 
+
+
+    // заходит в аккаунт пользователя
     @PostMapping("/login-process")
     public String loginUser(@ModelAttribute(name="loginForm") LoginForm loginForm, Model model) {
         try {
 
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                     loginForm.getUsername(), loginForm.getPassword()));
-            return "redirect:/home";
+            return "redirect:/home"; // если проверка прошла успешна перенсит на главную страницу
         } catch (AuthenticationException e) {
             model.addAttribute("error", "Incorrect username or password.");
-            return "login";
+            return "login"; //если нет то показывает что что то не так
         }
     }
 
+    //регистрирует нового пользователя
    @PostMapping("/register")
    public String registerUser(@ModelAttribute User user, Model model) {
 
        if (userService.registerUser(user)) {
-            return "redirect:/login";
+            return "redirect:/login"; // после регитсрации если ошибок нет то переносит на логин страницу если есть то покажет ошибку
         } else {
            model.addAttribute("error", "User with that username already exist.");
         return "register";

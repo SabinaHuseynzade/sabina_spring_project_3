@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class HomeController {
 
-    @GetMapping({"/home", "/"})
+    @GetMapping({"/home", "/"}) // открывает главную страницу и показывает сообщение на ней
     public String home(Model model) {
         model.addAttribute("message", "Welcome to home page!");
         return "home";

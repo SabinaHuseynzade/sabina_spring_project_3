@@ -21,20 +21,19 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
 
     public boolean registerUser(User user) {
-        if (userRepository.existsByUsername(user.getUsername())) {
-            return false; // Пользователь уже существует
+        if (userRepository.existsByUsername(user.getUsername())) { //проверяет существует ли пользователь по его юзернейму
+            return false;
         }
 
-        user.setPassword(passwordEncoder.encode(user.getPassword())); // Шифруем пароль
-        userRepository.save(user); // Сохраняем пользователя в базе данных
+        user.setPassword(passwordEncoder.encode(user.getPassword())); // шифрует пароль
+        userRepository.save(user); // сохраняет пользователя в базе данных
 
-        // Добавление роли (например, USER) для нового пользователя
+        // добавляет роли для нового пользователя
         Authority authority = new Authority(user.getUsername(), "ROLE_USER");
-        authorityRepository.save(authority); // Сохраните роль в базе данных
+        authorityRepository.save(authority); // сохраняет роль в базу данных
 
-        // Связка пользователя с ролью
-        userRepository.save(user); // Обновление пользователя с ролью
+        userRepository.save(user); // сохраняет пользователя вместе с ролью
 
-        return true; // Успешная регистрация
+        return true; // конец
     }
 }

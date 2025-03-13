@@ -31,7 +31,7 @@ public class ProductController {
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("/user/{userId}")
+    @GetMapping("/user/{userId}") //получает товары пользователя, добавляет информацию в модель, и открывает страницу products
     public String getProductsByUserId(@PathVariable Long userId, Model model) {
         List<Product> products = productService.getProductsByUserId(userId);
         model.addAttribute("products", products);
@@ -39,21 +39,22 @@ public class ProductController {
         model.addAttribute("editProduct", new Product());
         model.addAttribute("totalSales", productService.getTotalSales());
         model.addAttribute("totalRevenue", productService.getTotalRevenue());
-        return "products"; // Название HTML-шаблона для отображения
+        return "products";
     }
-    @GetMapping("/products")
+
+    @GetMapping("/products") //нужен чтоб отображать продукты по категориям но в итоге эту функцию реализовала по другому
     public String showProductsByCategory(@RequestParam("category") String category, Model model) {
         System.out.print(category);
 
         //List<Product> products = getProductsByCategory(category);
         // model.addAttribute("products", products);
-        return "marketplace"; // убедись, что этот шаблон существует в папке templates
+        return "marketplace";
     }
 
 
 
 
-    @PostMapping("/add-product-process")
+    @PostMapping("/add-product-process") //добавляет новый товар в систему
     public String addProduct(
             @ModelAttribute("newProduct") Product newProduct,
             @AuthenticationPrincipal UserDetails userDetails,
@@ -87,7 +88,7 @@ public class ProductController {
     }
 
 
-    @PostMapping("/edit-product-process")
+    @PostMapping("/edit-product-process") //изменяет товар
     public String editProduct(
             @ModelAttribute("editProduct") Product newProduct,
             @AuthenticationPrincipal UserDetails userDetails,
@@ -114,14 +115,14 @@ public class ProductController {
         return "redirect:/products/user/" + user.getId();
     }
 
-    @GetMapping("/edit/{id}")
+    @GetMapping("/edit/{id}")  //получает данные о товаре по его id
     @ResponseBody
     public Optional<Product> getProductDetails(@PathVariable Long id, Model model) {
 
         return productService.findById(id);
     }
 
-    @GetMapping("/delete/{id}")
+    @GetMapping("/delete/{id}") // удаляет товар из системы
     public String deleteProduct(@PathVariable("id") Long id, @AuthenticationPrincipal UserDetails userDetails) {
         String username = userDetails.getUsername();
 
@@ -136,7 +137,7 @@ public class ProductController {
         return "redirect:/products/user/" + user.getId();
     }
 
-    @GetMapping("/marketplace")
+    @GetMapping("/marketplace")//берет все товары и переносит их в маркетплейс
     public String getAllProducts(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
@@ -158,7 +159,7 @@ public class ProductController {
     }
 
 
-    @GetMapping("/more/{id}")
+    @GetMapping("/more/{id}") //находит данные о товаре по id
     @ResponseBody
     public Optional<Product> getProductMoreDetails(@PathVariable Long id, Model model) {
 
