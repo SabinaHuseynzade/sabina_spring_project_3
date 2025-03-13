@@ -5,6 +5,10 @@ import com.sabina_spring_project_3.sabina_spring_project_3.models.User;
 import com.sabina_spring_project_3.sabina_spring_project_3.repositories.UserRepository;
 import com.sabina_spring_project_3.sabina_spring_project_3.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -37,6 +41,17 @@ public class ProductController {
         model.addAttribute("totalRevenue", productService.getTotalRevenue());
         return "products"; // Название HTML-шаблона для отображения
     }
+    @GetMapping("/products")
+    public String showProductsByCategory(@RequestParam("category") String category, Model model) {
+        System.out.print(category);
+
+        //List<Product> products = getProductsByCategory(category);
+        // model.addAttribute("products", products);
+        return "marketplace"; // убедись, что этот шаблон существует в папке templates
+    }
+
+
+
 
     @PostMapping("/add-product-process")
     public String addProduct(
@@ -125,13 +140,23 @@ public class ProductController {
     public String getAllProducts(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
+            @RequestParam(required = false) String category,
             Model model) {
-        List<Product> products = productService.getAllProducts(page, size);
+        List<Product> products;
+
+        if (category == null || "All".equals(category)) {
+            products = productService.getAllProducts(page, size);
+        } else {
+            products = productService.getProductsByCategory(category, page, size);
+        }
+
         model.addAttribute("products", products);
         model.addAttribute("currentPage", page);
         model.addAttribute("hasMore", products.size() == size);
+        model.addAttribute("category", category);
         return "marketplace";
     }
+
 
     @GetMapping("/more/{id}")
     @ResponseBody
@@ -139,4 +164,11 @@ public class ProductController {
 
         return productService.findById(id);
     }
+
+
+
+
+
+
+
 }
