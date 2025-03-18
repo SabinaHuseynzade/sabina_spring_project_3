@@ -5,10 +5,11 @@
     <title>Title</title>
 </head>
 <body>
-<div class="fixed top-0 w-full" th:fragment="menu">
+<div  class="fixed top-0 w-full" th:fragment="menu">
     <header class="w-full">
         <nav
-                class="bg-white w-full border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800"
+                style="background-color: #B33030; height: 65px;" class="w-full border-black-200 px-4 lg:px-6 py-2.5 dark:bg-red-800"
+
         >
             <div class="flex flex-wrap justify-between items-center">
                 <a href="https://flowbite.com" class="flex items-center">
@@ -18,22 +19,29 @@
                             alt="Flowbite Logo"
                     />
                     <span
-                            class="self-center text-xl font-semibold whitespace-nowrap dark:text-white"
+                          style="color: white;"  class="self-center text-xl font-semibold whitespace-nowrap dark:text-white"
                     >Developia Computer Store</span
                     >
                 </a>
                 <div class="flex items-center lg:order-2">
                     <!-- Если пользователь не аутентифицирован, показываем кнопки "Log in" и "Get started" -->
-                    <div sec:authorize="!isAuthenticated()">
-                        <a href="/login" class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">Log in</a>
-                        <a href="/register" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">Get started</a>
+                    <div sec:authorize="!isAuthenticated()" style="margin-top: 12.5px;">
+                        <a href="/login" style="background-color: #B33030; color: white;  padding: 10px 20px; font-size: 20px; cursor: pointer;"
+                           onmouseover="this.style.backgroundColor='white'; this.style.color='#B33030';"
+                           onmouseout="this.style.backgroundColor='#B33030'; this.style.color='white';" class="text-black-800 dark:text-white hover:bg-red-600 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">Login</a>
+                        <a href="/register"  style="background-color: white; color: #B33030; padding: 10px 20px; font-size: 20px; cursor: pointer;"
+                           onmouseover="this.style.backgroundColor='#B33030'; this.style.color='white';"
+                           onmouseout="this.style.backgroundColor='white'; this.style.color='#B33030';" class="text-white bg-[#A1B57D] !important hover:bg-[#8A9E6F] !important focus:ring-[#A1B57D] !important font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none dark:bg-[#6E8658] dark:hover:bg-[#5C7247] dark:focus:ring-[#A1B57D]">
+                            Get started
+                        </a>
+
                     </div>
 
                     <!-- Если пользователь аутентифицирован, показываем кнопку "Exit" -->
                     <div class="flex items-center space-x-2" sec:authorize="isAuthenticated()">
-                        <p>Добро пожаловать, <span th:text="${#authentication.name}">Имя пользователя</span>!</p>
+                        <p style="color: white; font-weight: 700;">Welcome, <span th:text="${#authentication.name}">username</span>!</p>
                         <form th:action="@{/logout}" method="post">
-                            <button class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800" type="submit">Exit</button>
+                            <button style="background-color: white; font-weight: 900;" class="text-red-800 bg-black hover:bg-black focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800" type="submit">Exit</button>
                         </form>
                     </div>
                     <button
@@ -80,29 +88,22 @@
                         <li>
                             <a
                                     href="/"
-                                    class="block py-2 pr-4 pl-3 text-white rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white"
+                                    style="font-size: 20px;" class="block py-2 pr-4 pl-3 text-white rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white"
                                     aria-current="page"
                             >Home</a
                             >
                         </li>
                         <li>
                             <a
-                                    href="/"
-                                    class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
-                            >Company</a
-                            >
-                        </li>
-                        <li>
-                            <a
                                     href="/products/marketplace"
-                                    class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
+                                    style="font-size: 20px;" class="block py-2 pr-4 pl-3 text-white border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
                             >Marketplace</a
                             >
                         </li>
                         <li sec:authorize="isAuthenticated()">
                             <a
                                     th:href="@{/products/user/{id}(id=${#authentication.principal.id})}"
-                                    class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
+                                    style="font-size: 20px;" class="block py-2 pr-4 pl-3 text-white border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
                             >Products</a
                             >
                         </li>

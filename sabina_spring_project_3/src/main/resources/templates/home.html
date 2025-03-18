@@ -1,23 +1,71 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <title>Title</title>
-    <link
-            href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css"
-            rel="stylesheet"
-    />
+
+    <!-- Tailwind (Flowbite требует Tailwind) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Flowbite CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet"/>
 </head>
 
-<body>
+<body style="padding: 0; margin: 0; box-sizing: border-box;">
 <div th:replace="menu :: menu"></div>
 
-<section
-        class="bg-white h-screen flex justify-center items-center dark:bg-gray-900"
->
+<section style="background-color: white; min-height: 100vh; display: flex; justify-content: center; align-items: center;">
+    <div id="carouselExampleIndicators" style="margin-top: 50px; width: 75%; position: relative; overflow: hidden;">
+        <div class="carousel-inner" style="display: flex; transition: transform 0.5s ease-in-out;">
+            <div class="carousel-item active" style="flex: 0 0 100%; text-align: center;">
+                <img style="display: block; margin: 0 auto; width: 75%;" src="https://compro.by/asus3.jpg" alt="Acer">
+            </div>
+            <div class="carousel-item" style="flex: 0 0 100%; text-align: center;">
+                <img style="display: block; margin: 0 auto; width: 75%;" src="https://compro.by/asus3.jpg" alt="Asus">
+            </div>
+            <div class="carousel-item" style="flex: 0 0 100%; text-align: center;">
+                <img style="display: block; margin: 0 auto; width: 75%;" src="https://compro.by/asus3.jpg" alt="Dell">
+            </div>
+            <div class="carousel-item" style="flex: 0 0 100%; text-align: center;">
+                <img style="display: block; margin: 0 auto; width: 75%;" src="https://compro.by/asus3.jpg" alt="HP">
+            </div>
+            <div class="carousel-item" style="flex: 0 0 100%; text-align: center;">
+                <img style="display: block; margin: 0 auto; width: 75%;" src="https://compro.by/asus3.jpg" alt="Lenovo">
+            </div>
+        </div>
 
-
-
+        <button id="prevBtn" style="position: absolute; top: 50%; left: 10px; transform: translateY(-50%); background-color: #B33030; opacity: 0.25; width: 50px; height: 700px; border: none; cursor: pointer;">
+            ❮
+        </button>
+        <button id="nextBtn" style="position: absolute; top: 50%; right: 10px; transform: translateY(-50%); background-color: #B33030; opacity: 0.25; width: 50px; height: 700px; border: none; cursor: pointer;">
+            ❯
+        </button>
+    </div>
 </section>
+
+<!-- Flowbite JS -->
+<script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+
+<script>
+    let index = 0;
+    const items = document.querySelectorAll(".carousel-item");
+    const totalItems = items.length;
+
+    function updateCarousel() {
+        const inner = document.querySelector(".carousel-inner");
+        inner.style.transform = `translateX(-${index * 100}%)`;
+    }
+
+    document.getElementById("nextBtn").addEventListener("click", function () {
+        index = (index + 1) % totalItems;
+        updateCarousel();
+    });
+
+    document.getElementById("prevBtn").addEventListener("click", function () {
+        index = (index - 1 + totalItems) % totalItems;
+        updateCarousel();
+    });
+</script>
+
 </body>
 </html>

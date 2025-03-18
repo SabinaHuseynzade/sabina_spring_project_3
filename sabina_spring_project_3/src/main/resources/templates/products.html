@@ -8,15 +8,15 @@
             rel="stylesheet"
     />
 </head>
-<body class="bg-gray-50">
+<body>
 <div th:replace="menu :: menu"></div>
 
 <section
-        class="bg-gray-50 h-screen w-screen flex justify-center items-center dark:bg-gray-900 py-24"
+        class="bg-red-100 h-screen w-screen flex justify-center items-center dark:bg-red-50 py-24"
 >
     <div class="px-4 lg:px-12 h-full w-full">
         <div
-                class="relative h-full overflow-hidden bg-white shadow-md dark:bg-gray-800 sm:rounded-lg"
+                class="relative h-full overflow-hidden shadow-lg bg-white dark:bg-gray-800 sm:rounded-lg"
         >
             <div
                     class="flex flex-col px-4 py-3 space-y-3 lg:flex-row lg:items-center lg:justify-between lg:space-y-0 lg:space-x-4"
@@ -52,7 +52,7 @@
                         class="table w-full text-sm text-left text-gray-500 dark:text-gray-400"
                 >
                     <thead
-                            class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+                            class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400"
                     >
                     <tr>
                         <th scope="col" class="px-4 py-3">Product</th>
@@ -177,6 +177,8 @@
                                     id="defaultModalButton1"
                                     data-modal-target="defaultModal1"
                                     data-modal-toggle="defaultModal1"
+                                    style="background-color: white; color: #B33030; border: 2px solid #B33030;"
+
                                     class="editButton block text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                                     type="button"
                             >
@@ -184,6 +186,8 @@
                             </a>
                             <a
                                     th:href="@{/products/delete/{id}(id=${prod.id})}"
+                                    style="background-color: #B33030; color: white;"
+
                                     class="deleteButton block text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                                     type="button"
                             >
